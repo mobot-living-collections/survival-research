@@ -1,0 +1,155 @@
+Predicting Survival – Part 1 
+
+Goal: Produce a species survival prediction score for use in the Targeting DB 
+
+Process:  
+
+The files are here S:\HortandResearchedSharedProjects\Survival\ 
+
+Create survival data from LCMS exports 
+
+Use R script FindSurvivalMoBot_20240306.R to take raw data from LCMS and create survival data, censor the data, then merge survival data with variables of interest from LCMS.  
+
+Data files required: 
+
+The R script queries ten data tables from Microsoft SQL Server PlantRecordsProd 
+
+Output files: 
+
+LCMSSurvivalDataIncludesAllNOTCENSORED_2024Mar_152155.txt 
+
+LCMSSurvivalData_ 2024Mar06_161942.txt  
+
+Create phylogeny for survival data pulled from LCMS 
+
+Use R script FindPhylogenyForMBGSurvival20240319.R to match names with World Flora Online, then take survival data pulled from LCMS and match names to a phylogeny for analysis. 
+
+Data files required: 
+
+LCMSSurvivalData_ 2024Mar06_161942.txt 
+
+family_list_for_V.PhyloMaker2.csv [Family List Used for matching to create phylogeny. Source: https://github.com/jinyizju/Supplementary-files-of-the-V.PhyloMaker2-paper] 
+
+classification.csv [World Flora Online Backbone downloaded and unziped 2024/03/07, v.2023.06 Jun. 25, 2023] 
+
+The R script queries the InfraspecificRank from Microsoft SQL Server PlantRecordsProd 
+
+Output files: 
+
+WFOAcceptedNamesWithTaxonID_2024Mar08_120421.txt 
+
+Phy_LCMSSurvivalData_2024Mar06_161942.tre 
+
+TreeSpeciesList_2024Mar08_134535.txt 
+
+Gather and clean GBIF occurrences for survival analysis 
+
+Use R script GBIFDataSurvivalAnalysisPrep20240320.R to examine and subset data to find species level names, find species taxon key, find occurrences, remove bad coordinates, and export dataframe. 
+
+Data files required: 
+
+WFOAcceptedNamesWithTaxonID_2024Mar08_120421.txt 
+
+Output files: 
+
+LCMSGBIFTaxonomyList_2024-03-20 100458.txt 
+
+GBIFOccurrencePointsCleaned_2024Mar20_143329.txt 
+
+Create climate variables for survival analysis 
+
+Use R script FindClimateVariables_20230320.R to match study species GBIF occurrences with climate variables, then calculate summary statistics for each species and one-sided climate variables needed for survival analysis. 
+
+Data files required: 
+
+GBIFOccurrencePointsCleaned_2024Mar20_143329.txt 
+
+Output files: 
+
+gbifoccurencesClimateVals_2024Mar20_154202.txt 
+
+gbifoccurrencesClimateStats_2024Mar21_103445.txt 
+
+Perform survival analysis 
+
+Use R script PerformSurvivalAnalysis_20230321.R to perform the mixed effects Cox model survival anaylsis 
+
+Data files required: 
+
+LCMSSurvivalData_ 2024Mar06_161942.txt (from step 1 above) 
+
+WFOAcceptedNamesWithTaxonID_2024Mar08_120421.txt (from step 2 above) 
+
+Phy_LCMSSurvivalData_2024Mar06_161942.tre (from step 2 above) 
+
+TreeSpeciesList_2024Mar08_134535.txt (from step 2 above) 
+
+LCMSGBIFTaxonomyList_2024-03-20 100458.txt (from step 3 above) 
+
+gbifoccurrencesClimateStats_2024Mar21_103445.txt (from step 4 above) 
+
+Output files: 
+
+Not sure on this, the R script is not complete. 
+
+ 
+
+Results:   
+
+Ex situ species conservation: Predicting plant survival in botanic gardens based on climatic provenance 
+
+Addition of survival probability (log hazard ratio and translation) to Targeting DB 
+
+ 
+
+Questions for Ivan 
+
+How to resolve nomenclatural differences between LCMS, Targeting, and GBIF and whatever taxonomic backbone we use for Targeting 
+
+Is Worldclim our best resource for climate data? Chelsa? 
+
+Need to calculate climate variables to put into equations to predict survival? 
+
+What is the best way to organize this sort of work? 
+
+ 
+
+Meet again at end of summer with Ivan to discuss next steps 
+
+ 
+
+ 
+
+ 
+
+Planning for Attrition 
+
+Goal: 
+
+ 
+
+Predicting Survival – Part 2 
+
+Goal: 
+
+ 
+
+Predicting Survival – Morton data 
+
+Goal: 
+
+ 
+
+Quercus arkansana common garden experiment 
+
+Goal: Demonstrate the usefulness of measuring opportunity for selection and measuring provenance selection; tool for managing living collections when the goals is to represent intraspecific variation; paper for Conservation Biology 
+
+Data components: 
+
+Q. arkansana measurements 
+
+LCMS provenance data (already downloaded) 
+
+LCMS survival data 
+
+ 
